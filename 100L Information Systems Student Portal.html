@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>100L Information Systems Portal | Caleb University</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                            darkBg: '#090d16',
+                            darkCard: '#111726',
+                            darkBorder: '#1f293d'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .glass-card {
+            background: rgba(17, 23, 38, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .light .gradient-text {
+            background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-brand-darkBg text-slate-100 min-h-screen transition-colors duration-200 antialiased pb-12 selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 bg-brand-darkBg/90 dark:bg-brand-darkBg/90 light:bg-white/90 backdrop-blur-md border-b border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 px-4 py-3">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <!-- Crest Badge & Name -->
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 p-0.5 shadow-lg shadow-indigo-500/20 flex items-center justify-center">
+                    <div class="w-full h-full bg-brand-darkBg dark:bg-brand-darkBg light:bg-white rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid fa-graduation-cap text-indigo-400 dark:text-indigo-400 light:text-indigo-600 text-lg"></i>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-extrabold text-sm tracking-tight text-white dark:text-white light:text-slate-900">IS PORTAL</span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30">100L</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-500 font-medium">Caleb University, Imota</p>
+                </div>
+            </div>
+
+            <!-- Header Controls -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Toggle Button -->
+                <button onclick="toggleTheme()" class="p-2 rounded-xl bg-brand-darkCard dark:bg-brand-darkCard light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-amber-400 dark:text-amber-400 light:text-indigo-600 transition hover:scale-105 active:scale-95" aria-label="Toggle Theme">
+                    <i id="themeIcon" class="fa-solid fa-moon text-sm"></i>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMenu()" class="p-2 rounded-xl bg-brand-darkCard dark:bg-brand-darkCard light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700 transition" aria-label="Open Menu">
+                    <i class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation Drawer -->
+        <div id="navMenu" class="hidden max-w-4xl mx-auto pt-3 pb-1 border-t border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 mt-3 transition-all">
+            <nav class="grid grid-cols-2 gap-2 text-xs font-semibold">
+                <a href="#schedule" onclick="toggleMenu()" class="p-2.5 rounded-xl bg-brand-darkCard/50 dark:bg-brand-darkCard light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-indigo-400 flex items-center space-x-2">
+                    <i class="fa-regular fa-calendar text-indigo-400"></i>
+                    <span>Timetable</span>
+                </a>
+                <a href="#announcements" onclick="toggleMenu()" class="p-2.5 rounded-xl bg-brand-darkCard/50 dark:bg-brand-darkCard light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-indigo-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-bullhorn text-amber-400"></i>
+                    <span>Updates</span>
+                </a>
+                <a href="#courses" onclick="toggleMenu()" class="p-2.5 rounded-xl bg-brand-darkCard/50 dark:bg-brand-darkCard light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-indigo-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-book-open text-emerald-400"></i>
+                    <span>Courses & Materials</span>
+                </a>
+                <a href="#class-rep" onclick="toggleMenu()" class="p-2.5 rounded-xl bg-brand-darkCard/50 dark:bg-brand-darkCard light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-indigo-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-user-tie text-violet-400"></i>
+                    <span>Class Rep Desk</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 mt-5 space-y-6">
+
+        <!-- Hero Section -->
+        <section class="relative rounded-3xl p-6 bg-gradient-to-br from-brand-darkCard via-brand-darkCard to-indigo-950/40 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 shadow-2xl overflow-hidden">
+            <!-- Background Glows -->
+            <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-violet-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 space-y-3">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 dark:text-indigo-300 light:text-indigo-600 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>2026/2027 Session — First Semester</span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white dark:text-white light:text-slate-900 tracking-tight leading-tight">
+                    Information Systems <span class="gradient-text">Portal</span>
+                </h1>
+
+                <p class="text-xs sm:text-sm text-slate-300 dark:text-slate-300 light:text-slate-600 leading-relaxed">
+                    College of Computing & Information Sciences (COCIS) · Caleb University, Imota, Lagos State.
+                </p>
+
+                <!-- Quick Action Button Grid -->
+                <div class="pt-3 grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <a href="#schedule" class="p-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-xs transition shadow-lg shadow-indigo-600/30 flex flex-col items-center justify-center space-y-1.5 text-center active:scale-95">
+                        <i class="fa-solid fa-clock-rotate-left text-base"></i>
+                        <span>Today's Schedule</span>
+                    </a>
+                    <a href="#courses" class="p-3 bg-brand-darkCard dark:bg-brand-darkCard light:bg-white border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 text-slate-200 dark:text-slate-200 light:text-slate-800 rounded-xl font-semibold text-xs transition hover:border-indigo-500/50 flex flex-col items-center justify-center space-y-1.5 text-center active:scale-95">
+                        <i class="fa-solid fa-folder-open text-emerald-400 text-base"></i>
+                        <span>Course Slides</span>
+                    </a>
+                    <a href="#announcements" class="p-3 bg-brand-darkCard dark:bg-brand-darkCard light:bg-white border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 text-slate-200 dark:text-slate-200 light:text-slate-800 rounded-xl font-semibold text-xs transition hover:border-indigo-500/50 flex flex-col items-center justify-center space-y-1.5 text-center active:scale-95">
+                        <i class="fa-solid fa-bell text-amber-400 text-base"></i>
+                        <span>Updates</span>
+                    </a>
+                    <a href="#class-rep" class="p-3 bg-brand-darkCard dark:bg-brand-darkCard light:bg-white border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 text-slate-200 dark:text-slate-200 light:text-slate-800 rounded-xl font-semibold text-xs transition hover:border-indigo-500/50 flex flex-col items-center justify-center space-y-1.5 text-center active:scale-95">
+                        <i class="fa-solid fa-headset text-violet-400 text-base"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Timetable Section -->
+        <section id="schedule" class="space-y-3">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-white dark:text-white light:text-slate-900">Lecture Timetable</h2>
+                    <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-500">Auto-synced schedule based on current time</p>
+                </div>
+                <span id="currentDateBadge" class="text-[11px] font-medium text-indigo-300 dark:text-indigo-300 light:text-indigo-600 bg-indigo-500/10 px-2.5 py-1 rounded-lg border border-indigo-500/20"></span>
+            </div>
+
+            <!-- Day Selector Tabs -->
+            <div class="flex items-center justify-between bg-brand-darkCard dark:bg-brand-darkCard light:bg-slate-100 p-1.5 rounded-2xl border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 gap-1 overflow-x-auto">
+                <button onclick="renderSchedule('Mon')" id="tab-Mon" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Mon</button>
+                <button onclick="renderSchedule('Tue')" id="tab-Tue" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Tue</button>
+                <button onclick="renderSchedule('Wed')" id="tab-Wed" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Wed</button>
+                <button onclick="renderSchedule('Thu')" id="tab-Thu" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Thu</button>
+                <button onclick="renderSchedule('Fri')" id="tab-Fri" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Fri</button>
+                <button onclick="renderSchedule('Sat')" id="tab-Sat" class="day-btn flex-1 py-2 px-2.5 rounded-xl text-xs font-bold transition text-slate-400 text-center">Sat</button>
+            </div>
+
+            <!-- Timetable Cards Container -->
+            <div id="scheduleContainer" class="space-y-2.5">
+                <!-- Dynamically generated via JavaScript -->
+            </div>
+
+            <!-- Special Activity Notes -->
+            <div class="glass-card rounded-2xl p-4 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 text-xs space-y-2">
+                <div class="font-bold text-amber-400 flex items-center space-x-2">
+                    <i class="fa-solid fa-pin text-sm"></i>
+                    <span>University Calendar Activity Notes:</span>
+                </div>
+                <ul class="text-slate-300 dark:text-slate-300 light:text-slate-600 space-y-1 list-disc pl-4 leading-relaxed">
+                    <li><strong class="text-white dark:text-white light:text-slate-800">Wednesday 11:30 AM – 1:00 PM:</strong> Research Cluster Meetings (100L Students Exempted).</li>
+                    <li><strong class="text-white dark:text-white light:text-slate-800">Wednesday 1:00 PM – 4:00 PM:</strong> Designated for Sports & Co-Curricular Activities.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Announcements Section -->
+        <section id="announcements" class="space-y-3 pt-2">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-xl font-bold text-white dark:text-white light:text-slate-900">Announcements & News</h2>
+                    <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-500">Official noticeboard for Information Systems students</p>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                    <input type="text" id="announcementSearch" oninput="filterAnnouncements()" placeholder="Search updates..." class="w-full sm:w-48 pl-8 pr-3 py-1.5 rounded-xl bg-brand-darkCard dark:bg-brand-darkCard light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-xs text-white dark:text-white light:text-slate-900 focus:outline-none focus:border-indigo-500">
+                </div>
+            </div>
+
+            <!-- Pinned Banner -->
+            <div class="glass-card rounded-2xl p-4 border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 to-brand-darkCard relative overflow-hidden">
+                <div class="flex items-start space-x-3">
+                    <div class="p-2.5 bg-indigo-500/20 text-indigo-400 rounded-xl">
+                        <i class="fa-solid fa-clipboard-check text-lg"></i>
+                    </div>
+                    <div class="space-y-1 flex-1">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">PINNED ANNOUNCEMENT</span>
+                            <span class="text-[10px] text-slate-400">Oct 2026</span>
+                        </div>
+                        <h3 class="text-sm font-bold text-white dark:text-white light:text-slate-900">Course Registration Notice</h3>
+                        <p class="text-xs text-slate-300 dark:text-slate-300 light:text-slate-600 leading-relaxed">
+                            Log into the official Caleb portal and register all <strong class="text-white dark:text-white light:text-slate-900">8 approved courses (Total 16 Credit Units)</strong> for First Semester Information Systems.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Announcement List -->
+            <div id="announcementsList" class="space-y-2.5">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Academic Materials Hub -->
+        <section id="courses" class="space-y-3 pt-2">
+            <div>
+                <h2 class="text-xl font-bold text-white dark:text-white light:text-slate-900">Course Hub & Materials</h2>
+                <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-500">Registered courses, outlines, and lecture slides</p>
+            </div>
+
+            <div id="coursesGrid" class="space-y-3">
+                <!-- Dynamically populated -->
+            </div>
+        </section>
+
+        <!-- Class Rep Desk & Support -->
+        <section id="class-rep" class="glass-card rounded-2xl p-5 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 space-y-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xl font-bold border border-indigo-500/30">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white dark:text-white light:text-slate-900">Course Representative Desk</h3>
+                    <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-500">100L Information Systems Leadership</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <a href="https://wa.me/" target="_blank" class="p-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs flex items-center justify-center space-x-2 transition shadow-lg shadow-emerald-600/20 active:scale-95">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>Official Class WhatsApp Group</span>
+                </a>
+                <button onclick="openModal('Contact Course Rep', 'You can message the course representative directly on WhatsApp or submit a query using the feedback box below.')" class="p-3 rounded-xl bg-brand-darkCard dark:bg-brand-darkCard light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-800 font-semibold text-xs flex items-center justify-center space-x-2 transition hover:bg-indigo-500/10 active:scale-95">
+                    <i class="fa-regular fa-envelope text-indigo-400 text-base"></i>
+                    <span>Send Direct Message</span>
+                </button>
+            </div>
+
+            <!-- Quick Request / Feedback Form -->
+            <form onsubmit="handleFeedback(event)" class="space-y-3 pt-2 border-t border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200">
+                <label class="block text-xs font-semibold text-slate-300 dark:text-slate-300 light:text-slate-700">Submit Lecture Query / Feedback to Course Rep</label>
+                <div class="space-y-2">
+                    <input type="text" id="studentName" required placeholder="Your Name & Matric No. (Optional)" class="w-full p-2.5 rounded-xl bg-brand-darkBg dark:bg-brand-darkBg light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-xs text-white dark:text-white light:text-slate-900 focus:outline-none focus:border-indigo-500">
+                    <textarea id="studentMsg" required rows="2" placeholder="e.g. Is PHY 101 holding by 10 AM tomorrow at Physics Hall?" class="w-full p-2.5 rounded-xl bg-brand-darkBg dark:bg-brand-darkBg light:bg-slate-100 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-300 text-xs text-white dark:text-white light:text-slate-900 focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-md shadow-indigo-600/30">
+                    Send Query
+                </button>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-3xl mx-auto px-4 mt-10 text-center space-y-1">
+        <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-500 font-medium">100L Information Systems Class Portal © 2026/2027</p>
+        <p class="text-[10px] text-slate-500 dark:text-slate-500 light:text-slate-600">Department of Information Systems · College of Computing & Information Sciences (COCIS)</p>
+    </footer>
+
+    <!-- Universal Modal Dialog -->
+    <div id="modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full rounded-2xl p-5 border border-brand-darkBorder dark:border-brand-darkBorder light:border-slate-200 text-center space-y-4">
+            <div class="w-12 h-12 bg-indigo-500/20 text-indigo-400 rounded-2xl flex items-center justify-center mx-auto text-xl">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="space-y-1.5">
+                <h3 id="modalTitle" class="text-base font-bold text-white dark:text-white light:text-slate-900">Notification</h3>
+                <p id="modalBody" class="text-xs text-slate-300 dark:text-slate-300 light:text-slate-600 leading-relaxed"></p>
+            </div>
+            <button onclick="closeModal()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl text-xs transition">
+                Dismiss
+            </button>
+        </div>
+    </div>
+
+    <!-- Application Script Logic -->
+    <script>
+        // Data Structures
+        const timetable = {
+            Mon: [
+                { time: "08:00 AM - 10:00 AM", code: "INS 101", title: "Introduction to Information Systems", venue: "Lab 2 (COCIS)", lecturer: "Dr. Adebayo", type: "Lecture" },
+                { time: "10:00 AM - 12:00 PM", code: "PHY 101", title: "General Physics I", venue: "Physics Hall", lecturer: "Prof. Okonjo", type: "Lecture" },
+                { time: "02:00 PM - 04:00 PM", code: "GST 101", title: "Use of English & Communication", venue: "Auditorium B", lecturer: "Mrs. Williams", type: "General" }
+            ],
+            Tue: [
+                { time: "09:00 AM - 11:00 AM", code: "MTH 101", title: "General Mathematics I (Algebra)", venue: "Multipurpose Hall", lecturer: "Dr. Ogunleye", type: "Lecture" },
+                { time: "11:30 AM - 01:30 PM", code: "CTC 101", title: "Introduction to Computer Science", venue: "ICT Lab 1", lecturer: "Mr. Alabi", type: "Lab" }
+            ],
+            Wed: [
+                { time: "08:00 AM - 10:00 AM", code: "INS 103", title: "Digital Logic & Computer Org.", venue: "Lab 2 (COCIS)", lecturer: "Dr. Adebayo", type: "Lecture" },
+                { time: "11:30 AM - 01:00 PM", code: "EXEMPT", title: "Research Cluster Meetings", venue: "Campus Wide", lecturer: "N/A", type: "Notice" },
+                { time: "01:00 PM - 04:00 PM", code: "SPORTS", title: "University Sports & Co-Curricular", venue: "Sports Complex", lecturer: "Sports Unit", type: "Activity" }
+            ],
+            Thu: [
+                { time: "09:00 AM - 11:00 AM", code: "PHY 107", title: "General Physics Practical I", venue: "Physics Lab", lecturer: "Lab Instructors", type: "Practical" },
+                { time: "12:00 PM - 02:00 PM", code: "GST 111", title: "Nigerian Peoples and Culture", venue: "E-Learning Center", lecturer: "Dr. Ezekiel", type: "General" }
+            ],
+            Fri: [
+                { time: "08:00 AM - 10:00 AM", code: "MTH 101", title: "General Mathematics I Tutorial", venue: "Multipurpose Hall", lecturer: "Tutors", type: "Tutorial" },
+                { time: "10:00 AM - 12:00 PM", code: "INS 101", title: "Information Systems Practical/Lab", venue: "ICT Lab 2", lecturer: "Mr. Alabi", type: "Lab" }
+            ],
+            Sat: [
+                { time: "10:00 AM - 01:00 PM", code: "STUDY", title: "Self Study & E-Learning Revisions", venue: "Library / Hostel", lecturer: "Self-Paced", type: "Free" }
+            ]
+        };
+
+        const announcementsData = [
+            { id: 1, title: "GST 101 Continuous Assessment (CA) Date", date: "Oct 24, 2026", category: "Exams", body: "The GST unit has announced that the online CBT Test for GST 101 will take place next Friday. Ensure your student profile is fully updated." },
+            { id: 2, title: "Lab Coat Requirement for Physics Practical", date: "Oct 22, 2026", category: "Practical", body: "All Information Systems students taking PHY 107 must come with white lab coats starting this Thursday at the Physics Lab." },
+            { id: 3, title: "INS 101 Lecture Note Released", date: "Oct 19, 2026", category: "Materials", body: "Dr. Adebayo has uploaded Module 1 and 2 slides for Introduction to Information Systems. You can download it directly in the Courses Hub." }
+        ];
+
+        const coursesData = [
+            { code: "INS 101", name: "Introduction to Information Systems", units: 2, lecturer: "Dr. Adebayo", venue: "Lab 2 (COCIS)", outline: "Overview of IS, Hardware, Software, Information Architecture, Enterprise Systems." },
+            {
